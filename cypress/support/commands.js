@@ -1,28 +1,17 @@
 /*
-* Those are some commands to start and end our counter.
+* Those are some commands to encrypt the password.
 */
 
-let endPoint, startPoint = null
-let timeSpendedSeconds, timeSpendedMinutes, timeSpendedHours  = null
-
-// Command to start counting time
-Cypress.Commands.add('startcount', () => {
-    startPoint = new Date()
-    cy.log('_Start counting time..._')
+// Command to encrypt the password
+Cypress.Commands.overwrite('type', (password, element, text, options) => {
+    if(options && options.sensitive){
+        options.log = false
+        Cypress.log({ $el: element, name: 'type', message: '*'.repeat(text.length)})
+    }
+    return password(element, text, options)
 })
 
-// Command to stop our time counter
-Cypress.Commands.add('endcount', (timeFormat) => {
-    endPoint = new Date()
-
-    if (timeFormat == 'seconds'){
-        timeSpendedSeconds = ((endPoint.getTime() - startPoint.getTime()) / 1000)
-        cy.log(`_Time for this test:_ **${timeSpendedSeconds.toFixed(2)} seconds**`)
-    }
-
-    else if (timeFormat == 'minutes') {    
-        timeSpendedMinutes = (((endPoint.getTime() - startPoint.getTime()) / 1000 ) / 60)
-        cy.log(`_Time for this test:_ **${timeSpendedMinutes.toFixed(2)} minutes**`)
-    } 
-
+// Command to get the password and the location to type
+Cypress.Commands.add('typePassword', (location, password) => {
+    cy.get(location).type(password, {sensitive: true})
 })
