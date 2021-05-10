@@ -1,25 +1,28 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+/*
+* Those are some commands to start and end our counter.
+*/
+
+let endPoint, startPoint = null
+let timeSpendedSeconds, timeSpendedMinutes, timeSpendedHours  = null
+
+// Command to start counting time
+Cypress.Commands.add('startcount', () => {
+    startPoint = new Date()
+    cy.log('_Start counting time..._')
+})
+
+// Command to stop our time counter
+Cypress.Commands.add('endcount', (timeFormat) => {
+    endPoint = new Date()
+
+    if (timeFormat == 'seconds'){
+        timeSpendedSeconds = ((endPoint.getTime() - startPoint.getTime()) / 1000)
+        cy.log(`_Time for this test:_ **${timeSpendedSeconds.toFixed(2)} seconds**`)
+    }
+
+    else if (timeFormat == 'minutes') {    
+        timeSpendedMinutes = (((endPoint.getTime() - startPoint.getTime()) / 1000 ) / 60)
+        cy.log(`_Time for this test:_ **${timeSpendedMinutes.toFixed(2)} minutes**`)
+    } 
+
+})
