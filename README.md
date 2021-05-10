@@ -1,4 +1,4 @@
-# cypress-password-encrypted 🔑 
+# cypress-password-encrypted 🔐
 As a Test Automation Engineer working with Cypress.io I've been strugling to find some solutions for my problems. 
 This was a challenge to get our password encrypted and then to not show it everytime that we want show the test running
 to a stranger.
