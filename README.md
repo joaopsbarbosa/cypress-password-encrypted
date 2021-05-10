@@ -23,10 +23,10 @@ describe('Show password encrypted', () => {
 })
 ```
 ✅ get #password
->_Ttype **********
+>_type **********
 
 Insted of...
 
 🙅‍♂️get #password
->_Ttype P4$sw0rd.1
+>_type P4$sw0rd.1
 
